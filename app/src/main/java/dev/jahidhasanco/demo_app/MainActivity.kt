@@ -12,10 +12,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var seatBookView: SeatBookView
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = (
-            "UU_RR/"+
+            "U____/"+
+                    "_____/"+
                     "AA_AA/"+
                     "UA_AR/"+
-                    "AA_AA/")
+                    "AA_AA/"+
+            "AAAAA/")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

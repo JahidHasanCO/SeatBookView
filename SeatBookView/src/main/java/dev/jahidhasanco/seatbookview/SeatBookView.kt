@@ -2,6 +2,7 @@ package dev.jahidhasanco.seatbookview
 
 import android.content.Context
 import android.graphics.Color
+import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -11,8 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 
 
-class SeatBookView
-constructor(private val context: Context) {
+class SeatBookView : LinearLayout {
 
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = (
@@ -56,10 +56,12 @@ constructor(private val context: Context) {
     private var bookedTextColor = Color.WHITE
 
 
-
     init {
         getDisplaySize()
     }
+
+    constructor(context: Context) : super(context)
+    constructor(context: Context,attrs: AttributeSet) : super(context,attrs)
 
     private fun getDisplaySize() {
         val displayMetrics = context.resources.displayMetrics

@@ -1,5 +1,7 @@
 package dev.jahidhasanco.seatbookview
 
+
+
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
@@ -10,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.withStyledAttributes
 
 
 class SeatBookView : LinearLayout {
@@ -61,7 +64,20 @@ class SeatBookView : LinearLayout {
     }
 
     constructor(context: Context) : super(context)
-    constructor(context: Context,attrs: AttributeSet) : super(context,attrs)
+    constructor(context: Context,attrs: AttributeSet) : super(context,attrs,0)
+
+    constructor(context: Context, attrs: AttributeSet, defStyle:Int) : super(context,attrs,defStyle){
+        context.withStyledAttributes(attrs, R.styleable.seatBookView) {
+            reservedDrawable = getResourceId(R.styleable.seatBookView_reservedSeatBackground,reservedDrawable)
+            bookDrawable = getResourceId(R.styleable.seatBookView_bookedSeatBackground,bookDrawable)
+            bookedDrawable = getResourceId(R.styleable.seatBookView_bookedSeatBackground,bookedDrawable)
+            reservedTextColor = getColor(R.styleable.seatBookView_reservedSeatsTextColor,reservedTextColor)
+            seatSize = getInt(R.styleable.seatBookView_seatSize,300)
+            seatSize = getInt(pxWidth / (R.styleable.seatBookView_seatSize + 1),300)
+        }
+    }
+
+
 
     private fun getDisplaySize() {
         val displayMetrics = context.resources.displayMetrics

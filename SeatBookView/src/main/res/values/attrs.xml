@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="seatBookView">
-        <attr name="selectedSeatBackground" format="integer"/>
+        <attr name="availableSeatBackground" format="integer"/>
+        <attr name="reservedSeatBackground" format="integer"/>
+        <attr name="bookedSeatBackground" format="integer"/>
+        <attr name="reservedSeatsTextColor" format="color"/>
+        <attr name="seatSize" format="integer"/>
+        <attr name="seatSizeBySeatsColumn" format="integer"/>
     </declare-styleable>
 </resources>

@@ -12,18 +12,17 @@ import android.widget.Toast
 
 
 class SeatBookView
-constructor(private val context: Context)
-{
+constructor(private val context: Context) {
 
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = (
-            "UU_RR/"+
-                    "AA_AA/"+
-                    "UA_AR/"+
-                    "AA_AA/"+
-                    "AA_AU/"+
-                    "RA_AA/"+
-                    "AA_AA/"+
+            "UU_RR/" +
+                    "AA_AA/" +
+                    "UA_AR/" +
+                    "AA_AA/" +
+                    "AA_AU/" +
+                    "RA_AA/" +
+                    "AA_AA/" +
                     "AAAAA/")
 
     private var seatViewList: ArrayList<TextView> = arrayListOf()
@@ -37,17 +36,24 @@ constructor(private val context: Context)
 
     private var count = 0
 
+    //displayMetrics .density ... display size
     private var pxWidth = 0
     private var dpWidth = 0f
     private var pxHeight = 0
     private var dpHeight = 0f
+
+    // seats Drawable
+    private var bookDrawable = R.drawable.seats_book
+    private var bookedDrawable = R.drawable.seats_booked
+    private var reservedDrawable = R.drawable.seats_reserved
+    private var selectedDrawable = R.drawable.seats_selected
 
 
     init {
         getDisplaySize()
     }
 
-    private fun getDisplaySize(){
+    private fun getDisplaySize() {
         val displayMetrics = context.resources.displayMetrics
         pxWidth = displayMetrics.widthPixels
         dpWidth = pxWidth / displayMetrics.density
@@ -55,27 +61,27 @@ constructor(private val context: Context)
         dpHeight = pxHeight / displayMetrics.density
     }
 
-    fun setSeatGaping(size:Int): SeatBookView {
+    fun setSeatGaping(size: Int): SeatBookView {
         seatGaping = size
         return this
     }
 
-    fun setSeatSize(size:Int): SeatBookView {
+    fun setSeatSize(size: Int): SeatBookView {
         seatSize = size
         return this
     }
 
-    fun setSeatSizeBySeatsColumn(seatsInColumn:Int): SeatBookView {
-        seatSize = pxWidth/(seatsInColumn+1)
+    fun setSeatSizeBySeatsColumn(seatsInColumn: Int): SeatBookView {
+        seatSize = pxWidth / (seatsInColumn + 1)
         return this
     }
 
-    fun setSeatsLayoutString(seats: String):SeatBookView{
+    fun setSeatsLayoutString(seats: String): SeatBookView {
         this.seats = "/$seats"
         return this
     }
 
-    fun setSeatViewLayout(layout: ViewGroup){
+    fun setSeatViewLayout(layout: ViewGroup) {
         viewGroupLayout = layout
     }
 
@@ -83,13 +89,25 @@ constructor(private val context: Context)
         return selectedIds
     }
 
+    fun setAvailableSeatsBackground(drawable: Int): SeatBookView {
+        bookDrawable = drawable
+        return this
+    }
 
+    fun setBookedSeatsBackground(drawable: Int): SeatBookView {
+        bookedDrawable = drawable
+        return this
+    }
 
+    fun setReservedSeatsBackground(drawable: Int): SeatBookView {
+        reservedDrawable = drawable
+        return this
+    }
 
-
-
-
-
+    fun setSelectedSeatsBackground(drawable: Int): SeatBookView {
+        selectedDrawable = drawable
+        return this
+    }
 
     fun show() {
         val layoutSeat = LinearLayout(context)
@@ -178,7 +196,8 @@ constructor(private val context: Context)
         }
 
     }
-     fun seatClick(view: View) {
+
+    fun seatClick(view: View) {
         if (view.tag as Int == STATUS_AVAILABLE) {
             if (selectedIds.contains(view.id.toString() + ",")) {
                 selectedIds = selectedIds.replace(view.id.toString() + ",", "")

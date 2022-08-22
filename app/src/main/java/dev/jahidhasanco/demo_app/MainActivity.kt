@@ -16,33 +16,26 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewGroupLayout: ViewGroup
+    private lateinit var viewGroupLayout: ViewGroup
 
-    private var seats = ("_UUUUUUAAAAARRRR_/"
-            + "_________________/"
-            + "UU__AAAARRRRR__RR/"
-            + "UU__UUUAAAAAA__AA/"
-            + "AA__AAAAAAAAA__AA/"
-            + "AA__AARUUUURR__AA/"
-            + "UU__UUUA_RRRR__AA/"
-            + "AA__AAAA_RRAA__UU/"
-            + "AA__AARR_UUUU__RR/"
-            + "AA__UUAA_UURR__RR/"
-            + "_________________/"
-            + "UU_AAAAAAAUUUU_RR/"
-            + "RR_AAAAAAAAAAA_AA/"
-            + "AA_UUAAAAAUUUU_AA/"
-            + "AA_AAAAAAUUUUU_AA/"
-            + "_________________/")
+    private var seats = (
+            "UU_RR/"+
+            "AA_AA/"+
+            "UA_AR/"+
+            "AA_AA/"+
+            "AA_AU/"+
+            "RA_AA/"+
+            "AA_AA/"+
+            "AAAAA/")
 
-    var seatViewList: ArrayList<TextView> = arrayListOf()
-    var seatSize = 100
-    var seatGaping = 10
+    private var seatViewList: ArrayList<TextView> = arrayListOf()
+    private var seatSize = 300
+    private var seatGaping = 10
 
     private val STATUS_AVAILABLE = 1
     private val STATUS_BOOKED = 2
     private val STATUS_RESERVED = 3
-    var selectedIds = ""
+    private var selectedIds = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +62,7 @@ class MainActivity : AppCompatActivity() {
             if (seats[index] == '/') {
                 layout = LinearLayout(this)
                 layout.orientation = LinearLayout.HORIZONTAL
+                layout.gravity = Gravity.CENTER
                 layoutSeat.addView(layout)
             } else if (seats[index] == 'U') {
                 count++
@@ -83,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 view.setTextColor(Color.WHITE)
                 view.tag = STATUS_BOOKED
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9f)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
                 layout!!.addView(view)
                 seatViewList.add(view)
                 view.setOnClickListener{
@@ -100,7 +94,7 @@ class MainActivity : AppCompatActivity() {
                 view.gravity = Gravity.CENTER
                 view.setBackgroundResource(R.drawable.seats_book)
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9f)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
                 view.setTextColor(Color.BLACK)
                 view.tag = STATUS_AVAILABLE
                 layout!!.addView(view)
@@ -119,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 view.gravity = Gravity.CENTER
                 view.setBackgroundResource(R.drawable.seats_reserved)
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9f)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
                 view.setTextColor(Color.WHITE)
                 view.tag = STATUS_RESERVED
                 layout!!.addView(view)

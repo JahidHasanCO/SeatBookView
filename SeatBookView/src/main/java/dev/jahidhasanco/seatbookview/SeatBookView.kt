@@ -49,6 +49,14 @@ constructor(private val context: Context) {
     private var selectedDrawable = R.drawable.seats_selected
 
 
+    // Seat Text
+    private var textSize = 14f
+    private var reservedTextColor = Color.WHITE
+    private var bookTextColor = Color.BLACK
+    private var bookedTextColor = Color.WHITE
+
+
+
     init {
         getDisplaySize()
     }
@@ -109,6 +117,26 @@ constructor(private val context: Context) {
         return this
     }
 
+    fun setSeatTextSize(size:Float){
+        textSize = size
+    }
+
+
+    fun setReservedSeatsTextColor(color:Int):SeatBookView{
+        reservedTextColor = color
+        return this
+    }
+
+    fun setAvailableSeatsTextColor(color:Int):SeatBookView{
+        bookTextColor = color
+        return this
+    }
+
+    fun setBookedSeatsTextColor(color:Int):SeatBookView{
+        bookedTextColor = color
+        return this
+    }
+
     fun show() {
         val layoutSeat = LinearLayout(context)
         val params = LinearLayout.LayoutParams(
@@ -136,11 +164,11 @@ constructor(private val context: Context) {
                 view.setPadding(0, 0, 0, 2 * seatGaping)
                 view.id = count
                 view.gravity = Gravity.CENTER
-                view.setBackgroundResource(R.drawable.seats_booked)
-                view.setTextColor(Color.WHITE)
+                view.setBackgroundResource(bookedDrawable)
+                view.setTextColor(bookedTextColor)
                 view.tag = STATUS_BOOKED
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
                 layout!!.addView(view)
                 seatViewList.add(view)
                 view.setOnClickListener {
@@ -155,10 +183,10 @@ constructor(private val context: Context) {
                 view.setPadding(0, 0, 0, 2 * seatGaping)
                 view.id = count
                 view.gravity = Gravity.CENTER
-                view.setBackgroundResource(R.drawable.seats_book)
+                view.setBackgroundResource(bookDrawable)
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
-                view.setTextColor(Color.BLACK)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+                view.setTextColor(bookTextColor)
                 view.tag = STATUS_AVAILABLE
                 layout!!.addView(view)
                 seatViewList.add(view)
@@ -174,10 +202,10 @@ constructor(private val context: Context) {
                 view.setPadding(0, 0, 0, 2 * seatGaping)
                 view.id = count
                 view.gravity = Gravity.CENTER
-                view.setBackgroundResource(R.drawable.seats_reserved)
+                view.setBackgroundResource(reservedDrawable)
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
-                view.setTextColor(Color.WHITE)
+                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+                view.setTextColor(reservedTextColor)
                 view.tag = STATUS_RESERVED
                 layout!!.addView(view)
                 seatViewList.add(view)
@@ -201,10 +229,10 @@ constructor(private val context: Context) {
         if (view.tag as Int == STATUS_AVAILABLE) {
             if (selectedIds.contains(view.id.toString() + ",")) {
                 selectedIds = selectedIds.replace(view.id.toString() + ",", "")
-                view.setBackgroundResource(R.drawable.seats_book)
+                view.setBackgroundResource(bookDrawable)
             } else {
                 selectedIds = selectedIds + view.id.toString() + ","
-                view.setBackgroundResource(R.drawable.seats_selected)
+                view.setBackgroundResource(selectedDrawable)
             }
         } else if (view.tag as Int == STATUS_BOOKED) {
             Toast.makeText(

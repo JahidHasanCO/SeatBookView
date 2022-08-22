@@ -24,12 +24,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewGroupLayout = findViewById(R.id.layoutSeat)
-
         seatBookView = SeatBookView(this)
-            .setSeatSizeBySeatsColumn(5)
             .setSeatGaping(10)
+            .setSeatSizeBySeatsColumn(5)
+            .setAvailableSeatsTextColor(R.color.purple_200)
             .setSeatsLayoutString(seats)
 
+        seatBookView.setSeatTextSize(21f)
 
         seatBookView.setSeatViewLayout(viewGroupLayout)
         seatBookView.show()

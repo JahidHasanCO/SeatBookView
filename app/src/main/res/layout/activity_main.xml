@@ -9,13 +9,14 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        >
 
         <dev.jahidhasanco.seatbookview.SeatBookView
             android:id="@+id/layoutSeat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_height="wrap_content"
+            app:seat_size_by_seats_column="9"
             android:orientation="vertical"/>
 
     </ScrollView>

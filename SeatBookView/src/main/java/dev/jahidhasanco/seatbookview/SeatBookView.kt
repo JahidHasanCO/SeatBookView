@@ -35,7 +35,25 @@ constructor(private val context: Context)
     private val STATUS_RESERVED = 3
     private var selectedIds = ""
 
-  //  private var dp = 0f
+    private var count = 0
+
+    private var pxWidth = 0
+    private var dpWidth = 0f
+    private var pxHeight = 0
+    private var dpHeight = 0f
+
+
+    init {
+        getDisplaySize()
+    }
+
+    private fun getDisplaySize(){
+        val displayMetrics = context.resources.displayMetrics
+        pxWidth = displayMetrics.widthPixels
+        dpWidth = pxWidth / displayMetrics.density
+        pxHeight = displayMetrics.heightPixels
+        dpHeight = pxHeight / displayMetrics.density
+    }
 
     fun setSeatGaping(size:Int): SeatBookView {
         seatGaping = size
@@ -44,6 +62,11 @@ constructor(private val context: Context)
 
     fun setSeatSize(size:Int): SeatBookView {
         seatSize = size
+        return this
+    }
+
+    fun setSeatSizeBySeatsColumn(seatsInColumn:Int): SeatBookView {
+        seatSize = pxWidth/(seatsInColumn+1)
         return this
     }
 
@@ -60,15 +83,13 @@ constructor(private val context: Context)
         return selectedIds
     }
 
-//    dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, context.resources.displayMetrics)
-
-        
 
 
 
 
 
-    private var count = 0
+
+
 
     fun show() {
         val layoutSeat = LinearLayout(context)
@@ -181,4 +202,8 @@ constructor(private val context: Context)
         }
     }
 
+}
+
+interface SeatViewOnSeatSelect {
+    fun onSeatClick(position: Int, path: String?)
 }

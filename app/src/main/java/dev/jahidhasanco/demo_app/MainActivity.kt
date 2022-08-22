@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         viewGroupLayout = findViewById(R.id.layoutSeat)
 
         seatBookView = SeatBookView(this)
-            .setSeatSize(100)
+            .setSeatSizeBySeatsColumn(5)
             .setSeatGaping(10)
             .setSeatsLayoutString(seats)
 

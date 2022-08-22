@@ -73,16 +73,16 @@ class SeatBookView : LinearLayout {
     }
 
     private fun setAttrs(attrs: AttributeSet) {
-        context.withStyledAttributes(attrs, R.styleable.seatBookView) {
-            reservedDrawable = getResourceId(R.styleable.seatBookView_reservedSeatBackground,reservedDrawable)
-            bookDrawable = getResourceId(R.styleable.seatBookView_availableSeatBackground,bookDrawable)
-            bookedDrawable = getResourceId(R.styleable.seatBookView_bookedSeatBackground,bookedDrawable)
-            selectedDrawable = getResourceId(R.styleable.seatBookView_selectedSeatsBackground,selectedDrawable)
-            reservedTextColor = getColor(R.styleable.seatBookView_reservedSeatsTextColor,reservedTextColor)
-            bookTextColor = getColor(R.styleable.seatBookView_availableSeatsTextColor,bookTextColor)
-            bookedTextColor = getColor(R.styleable.seatBookView_bookedSeatsTextColor,bookedTextColor)
-            seatSize = getInt(R.styleable.seatBookView_seatSize,300)
-            seatSize = getInt(pxWidth / (R.styleable.seatBookView_seatSizeBySeatsColumn + 1),300)
+        context.withStyledAttributes(attrs, R.styleable.SeatBookView) {
+            reservedDrawable = getResourceId(R.styleable.SeatBookView_reservedSeatBackground,reservedDrawable)
+            bookDrawable = getResourceId(R.styleable.SeatBookView_availableSeatBackground,bookDrawable)
+            bookedDrawable = getResourceId(R.styleable.SeatBookView_bookedSeatBackground,bookedDrawable)
+            selectedDrawable = getResourceId(R.styleable.SeatBookView_selectedSeatsBackground,selectedDrawable)
+            reservedTextColor = getColor(R.styleable.SeatBookView_reservedSeatsTextColor,reservedTextColor)
+            bookTextColor = getColor(R.styleable.SeatBookView_availableSeatsTextColor,bookTextColor)
+            bookedTextColor = getColor(R.styleable.SeatBookView_bookedSeatsTextColor,bookedTextColor)
+            seatSize = getInt(R.styleable.SeatBookView_seatSize,300)
+            seatSize = getInt(pxWidth / (R.styleable.SeatBookView_seatSizeBySeatsColumn + 1),300)
         }
     }
 

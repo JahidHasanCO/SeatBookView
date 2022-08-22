@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="seatBookView">
+    <declare-styleable name="SeatBookView">
         <attr name="availableSeatBackground" format="integer"/>
         <attr name="reservedSeatBackground" format="integer"/>
         <attr name="bookedSeatBackground" format="integer"/>

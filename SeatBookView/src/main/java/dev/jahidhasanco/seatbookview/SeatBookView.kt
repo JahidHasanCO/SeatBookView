@@ -35,7 +35,7 @@ constructor(private val context: Context)
     private val STATUS_RESERVED = 3
     private var selectedIds = ""
 
-    private var dp = 0f
+  //  private var dp = 0f
 
     fun setSeatGaping(size:Int): SeatBookView {
         seatGaping = size
@@ -60,11 +60,17 @@ constructor(private val context: Context)
         return selectedIds
     }
 
-    dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, context.resources.displayMetrics)
+//    dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, context.resources.displayMetrics)
 
         
 
 
+
+
+
+    private var count = 0
+
+    fun show() {
         val layoutSeat = LinearLayout(context)
         val params = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -76,17 +82,15 @@ constructor(private val context: Context)
         viewGroupLayout.addView(layoutSeat)
 
         var layout: LinearLayout? = null
-        var count = 0
-
         for (index in seats.indices) {
             if (seats[index] == '/') {
-                layout = LinearLayout(this)
+                layout = LinearLayout(context)
                 layout.orientation = LinearLayout.HORIZONTAL
                 layout.gravity = Gravity.CENTER
                 layoutSeat.addView(layout)
             } else if (seats[index] == 'U') {
                 count++
-                val view = TextView(this)
+                val view = TextView(context)
                 val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
                 view.layoutParams = layoutParams
@@ -100,12 +104,12 @@ constructor(private val context: Context)
                 view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f)
                 layout!!.addView(view)
                 seatViewList.add(view)
-                view.setOnClickListener{
+                view.setOnClickListener {
                     seatClick(it)
                 }
             } else if (seats[index] == 'A') {
                 count++
-                val view = TextView(this)
+                val view = TextView(context)
                 val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
                 view.layoutParams = layoutParams
@@ -119,12 +123,12 @@ constructor(private val context: Context)
                 view.tag = STATUS_AVAILABLE
                 layout!!.addView(view)
                 seatViewList.add(view)
-                view.setOnClickListener{
+                view.setOnClickListener {
                     seatClick(it)
                 }
             } else if (seats[index] == 'R') {
                 count++
-                val view = TextView(this)
+                val view = TextView(context)
                 val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
                 view.layoutParams = layoutParams
@@ -138,11 +142,11 @@ constructor(private val context: Context)
                 view.tag = STATUS_RESERVED
                 layout!!.addView(view)
                 seatViewList.add(view)
-                view.setOnClickListener{
+                view.setOnClickListener {
                     seatClick(it)
                 }
             } else if (seats[index] == '_') {
-                val view = TextView(this)
+                val view = TextView(context)
                 val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
                 view.layoutParams = layoutParams
@@ -152,7 +156,7 @@ constructor(private val context: Context)
             }
         }
 
-
+    }
      fun seatClick(view: View) {
         if (view.tag as Int == STATUS_AVAILABLE) {
             if (selectedIds.contains(view.id.toString() + ",")) {
@@ -164,13 +168,13 @@ constructor(private val context: Context)
             }
         } else if (view.tag as Int == STATUS_BOOKED) {
             Toast.makeText(
-                this,
+                context,
                 "Seat " + view.id.toString() + " is Booked",
                 Toast.LENGTH_SHORT
             ).show()
         } else if (view.tag as Int == STATUS_RESERVED) {
             Toast.makeText(
-                this,
+                context,
                 "Seat " + view.id.toString() + " is Reserved",
                 Toast.LENGTH_SHORT
             ).show()

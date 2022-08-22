@@ -15,15 +15,13 @@ class MainActivity : AppCompatActivity() {
             "UU_RR/"+
                     "AA_AA/"+
                     "UA_AR/"+
-                    "AA_AA/"+
-                    "AA_AU/"+
-                    "RA_AA/"+
-                    "AA_AA/"+
-                    "AAAAA/")
+                    "AA_AA/")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        viewGroupLayout = findViewById(R.id.layoutSeat)
 
         seatBookView = SeatBookView(this)
             .setSeatSize(100)
@@ -32,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
 
         seatBookView.setSeatViewLayout(viewGroupLayout)
+        seatBookView.show()
 
     }
 

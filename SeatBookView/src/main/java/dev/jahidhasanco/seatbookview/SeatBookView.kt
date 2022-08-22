@@ -64,19 +64,27 @@ class SeatBookView : LinearLayout {
     }
 
     constructor(context: Context) : super(context)
-    constructor(context: Context,attrs: AttributeSet) : super(context,attrs,0)
-
-    constructor(context: Context, attrs: AttributeSet, defStyle:Int) : super(context,attrs,defStyle){
-        context.withStyledAttributes(attrs, R.styleable.seatBookView) {
-            reservedDrawable = getResourceId(R.styleable.seatBookView_reservedSeatBackground,reservedDrawable)
-            bookDrawable = getResourceId(R.styleable.seatBookView_bookedSeatBackground,bookDrawable)
-            bookedDrawable = getResourceId(R.styleable.seatBookView_bookedSeatBackground,bookedDrawable)
-            reservedTextColor = getColor(R.styleable.seatBookView_reservedSeatsTextColor,reservedTextColor)
-            seatSize = getInt(R.styleable.seatBookView_seatSize,300)
-            seatSize = getInt(pxWidth / (R.styleable.seatBookView_seatSize + 1),300)
-        }
+    constructor(context: Context,attrs: AttributeSet) : super(context,attrs,0){
+        setAttrs(attrs)
     }
 
+    constructor(context: Context, attrs: AttributeSet, defStyle:Int) : super(context,attrs,defStyle){
+        setAttrs(attrs)
+    }
+
+    private fun setAttrs(attrs: AttributeSet) {
+        context.withStyledAttributes(attrs, R.styleable.seatBookView) {
+            reservedDrawable = getResourceId(R.styleable.seatBookView_reservedSeatBackground,reservedDrawable)
+            bookDrawable = getResourceId(R.styleable.seatBookView_availableSeatBackground,bookDrawable)
+            bookedDrawable = getResourceId(R.styleable.seatBookView_bookedSeatBackground,bookedDrawable)
+            selectedDrawable = getResourceId(R.styleable.seatBookView_selectedSeatsBackground,selectedDrawable)
+            reservedTextColor = getColor(R.styleable.seatBookView_reservedSeatsTextColor,reservedTextColor)
+            bookTextColor = getColor(R.styleable.seatBookView_availableSeatsTextColor,bookTextColor)
+            bookedTextColor = getColor(R.styleable.seatBookView_bookedSeatsTextColor,bookedTextColor)
+            seatSize = getInt(R.styleable.seatBookView_seatSize,300)
+            seatSize = getInt(pxWidth / (R.styleable.seatBookView_seatSizeBySeatsColumn + 1),300)
+        }
+    }
 
 
     private fun getDisplaySize() {
@@ -267,8 +275,4 @@ class SeatBookView : LinearLayout {
         }
     }
 
-}
-
-interface SeatViewOnSeatSelect {
-    fun onSeatClick(position: Int, path: String?)
 }

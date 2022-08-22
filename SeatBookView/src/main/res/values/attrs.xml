@@ -4,7 +4,10 @@
         <attr name="availableSeatBackground" format="integer"/>
         <attr name="reservedSeatBackground" format="integer"/>
         <attr name="bookedSeatBackground" format="integer"/>
+        <attr name="selectedSeatsBackground" format="integer"/>
         <attr name="reservedSeatsTextColor" format="color"/>
+        <attr name="bookedSeatsTextColor" format="color"/>
+        <attr name="availableSeatsTextColor" format="color"/>
         <attr name="seatSize" format="integer"/>
         <attr name="seatSizeBySeatsColumn" format="integer"/>
     </declare-styleable>

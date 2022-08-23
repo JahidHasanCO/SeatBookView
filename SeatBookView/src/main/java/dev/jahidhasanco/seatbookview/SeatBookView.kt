@@ -1,7 +1,6 @@
 package dev.jahidhasanco.seatbookview
 
 
-
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
@@ -11,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.withStyledAttributes
 
 
-class SeatBookView : LinearLayout {
+class SeatBookView
+@JvmOverloads
+constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
+    LinearLayout(context, attrs, defStyle) {
 
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = (
@@ -59,32 +60,39 @@ class SeatBookView : LinearLayout {
     private var bookedTextColor = Color.WHITE
 
 
+    private var listener: SeatClickListener? = null
+
+
     init {
         getDisplaySize()
-    }
-
-    constructor(context: Context) : super(context)
-    constructor(context: Context,attrs: AttributeSet) : super(context,attrs,0){
- //       setAttrs(attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyle:Int) : super(context,attrs,defStyle){
-        context.withStyledAttributes(attrs, R.styleable.SeatBookView) {
-            reservedDrawable = getResourceId(R.styleable.SeatBookView_reserved_seat_background,reservedDrawable)
-            bookDrawable = getResourceId(R.styleable.SeatBookView_available_seat_background,bookDrawable)
-            bookedDrawable = getResourceId(R.styleable.SeatBookView_booked_seat_background,bookedDrawable)
-            selectedDrawable = getResourceId(R.styleable.SeatBookView_selected_seats_background,selectedDrawable)
-            reservedTextColor = getColor(R.styleable.SeatBookView_reserved_seats_text_color,reservedTextColor)
-            bookTextColor = getColor(R.styleable.SeatBookView_available_seats_text_color,bookTextColor)
-            bookedTextColor = getColor(R.styleable.SeatBookView_booked_seats_text_color,bookedTextColor)
-            seatSize = getInt(R.styleable.SeatBookView_seat_size,300)
-            seatSize = getInt(pxWidth / (R.styleable.SeatBookView_seat_size_by_seats_column + 1),300)
+        if (attrs != null) {
+            context.withStyledAttributes(attrs, R.styleable.SeatBookView) {
+                reservedDrawable =
+                    getResourceId(
+                        R.styleable.SeatBookView_reserved_seat_background,
+                        reservedDrawable
+                    )
+                bookDrawable =
+                    getResourceId(R.styleable.SeatBookView_available_seat_background, bookDrawable)
+                bookedDrawable =
+                    getResourceId(R.styleable.SeatBookView_booked_seat_background, bookedDrawable)
+                selectedDrawable =
+                    getResourceId(
+                        R.styleable.SeatBookView_selected_seats_background,
+                        selectedDrawable
+                    )
+                reservedTextColor =
+                    getColor(R.styleable.SeatBookView_reserved_seats_text_color, reservedTextColor)
+                bookTextColor =
+                    getColor(R.styleable.SeatBookView_available_seats_text_color, bookTextColor)
+                bookedTextColor =
+                    getColor(R.styleable.SeatBookView_booked_seats_text_color, bookedTextColor)
+                seatSize = getInt(R.styleable.SeatBookView_seat_size, 300)
+                seatSize =
+                    getInt(pxWidth / (R.styleable.SeatBookView_seat_size_by_seats_column + 1), 300)
+            }
         }
     }
-
-//    private fun setAttrs(attrs: AttributeSet) {
-//
-//    }
 
 
     private fun getDisplaySize() {
@@ -143,22 +151,22 @@ class SeatBookView : LinearLayout {
         return this
     }
 
-    fun setSeatTextSize(size:Float){
+    fun setSeatTextSize(size: Float) {
         textSize = size
     }
 
 
-    fun setReservedSeatsTextColor(color:Int):SeatBookView{
+    fun setReservedSeatsTextColor(color: Int): SeatBookView {
         reservedTextColor = color
         return this
     }
 
-    fun setAvailableSeatsTextColor(color:Int):SeatBookView{
+    fun setAvailableSeatsTextColor(color: Int): SeatBookView {
         bookTextColor = color
         return this
     }
 
-    fun setBookedSeatsTextColor(color:Int):SeatBookView{
+    fun setBookedSeatsTextColor(color: Int): SeatBookView {
         bookedTextColor = color
         return this
     }
@@ -251,28 +259,57 @@ class SeatBookView : LinearLayout {
 
     }
 
+    //    fun seatClick(view: View) {
+//        if (view.tag as Int == STATUS_AVAILABLE) {
+//            if (selectedIds.contains(view.id.toString() + ",")) {
+//                selectedIds = selectedIds.replace(view.id.toString() + ",", "")
+//                view.setBackgroundResource(bookDrawable)
+//            } else {
+//                selectedIds = selectedIds + view.id.toString() + ","
+//                view.setBackgroundResource(selectedDrawable)
+//            }
+//        } else if (view.tag as Int == STATUS_BOOKED) {
+//            Toast.makeText(
+//                context,
+//                "Seat " + view.id.toString() + " is Booked",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        } else if (view.tag as Int == STATUS_RESERVED) {
+//            Toast.makeText(
+//                context,
+//                "Seat " + view.id.toString() + " is Reserved",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
+//
     fun seatClick(view: View) {
         if (view.tag as Int == STATUS_AVAILABLE) {
             if (selectedIds.contains(view.id.toString() + ",")) {
                 selectedIds = selectedIds.replace(view.id.toString() + ",", "")
                 view.setBackgroundResource(bookDrawable)
+                listener!!.onAvailableSeatClick(selectedIds, view)
             } else {
                 selectedIds = selectedIds + view.id.toString() + ","
                 view.setBackgroundResource(selectedDrawable)
+                listener!!.onAvailableSeatClick(selectedIds, view)
             }
         } else if (view.tag as Int == STATUS_BOOKED) {
-            Toast.makeText(
-                context,
-                "Seat " + view.id.toString() + " is Booked",
-                Toast.LENGTH_SHORT
-            ).show()
+            listener!!.onBookedSeatClick(view.id.toString(), view)
         } else if (view.tag as Int == STATUS_RESERVED) {
-            Toast.makeText(
-                context,
-                "Seat " + view.id.toString() + " is Reserved",
-                Toast.LENGTH_SHORT
-            ).show()
+            listener!!.onBookedSeatClick(view.id.toString(), view)
         }
     }
 
+    fun setSeatClickListener(listener: SeatClickListener) {
+        this.listener = listener
+    }
+
+    interface SeatClickListener {
+        fun onAvailableSeatClick(selectedIds: String, view: View)
+        fun onBookedSeatClick(seatId: String, view: View)
+        fun onReservedSeatClick(seatId: String, view: View)
+    }
+
 }
+

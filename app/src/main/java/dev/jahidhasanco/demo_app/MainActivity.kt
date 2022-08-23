@@ -2,7 +2,9 @@ package dev.jahidhasanco.demo_app
 
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dev.jahidhasanco.seatbookview.SeatBookView
 
@@ -19,6 +21,10 @@ class MainActivity : AppCompatActivity() {
                     "AA_AA/"+
             "AAAAA/")
 
+    private val STATUS_AVAILABLE = 1
+    private val STATUS_BOOKED = 2
+    private val STATUS_RESERVED = 3
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,6 +40,31 @@ class MainActivity : AppCompatActivity() {
 
         seatBookView.setSeatViewLayout(viewGroupLayout)
         seatBookView.show()
+
+        seatBookView.setSeatClickListener(object :SeatBookView.SeatClickListener{
+
+            override fun onAvailableSeatClick(selectedIds: String, view: View) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onBookedSeatClick(seatId: String, view: View) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Seat " + view.id.toString() + " is Booked",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onReservedSeatClick(seatId: String, view: View) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Seat " + view.id.toString() + " is Reserved",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
+        })
 
     }
 

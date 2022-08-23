@@ -4,11 +4,8 @@ package dev.jahidhasanco.demo_app
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginBottom
-import androidx.core.view.setPadding
 import dev.jahidhasanco.seatbookview.SeatBookView
 
 
@@ -17,21 +14,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var seatBookView: SeatBookView
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = (
-            "U____/" +
-                    "_____/" +
-                    "AA_AA/" +
-                    "UA_AR/" +
-                    "AA_AA/" +
-                    "AAAAA/")
+            "/U____" +
+                    "/_____" +
+                    "/AA_AA" +
+                    "/UA_AR" +
+                    "/AA_AA" +
+                    "/AAAAA")
 
-    private var title = (
-            "EEEEE" +
-                    "_____" +
-                    "AAAAA" +
-                    "BBBBB" +
-                    "CCCCC" +
-                    "DDDDD"
-            )
+    private var title = listOf(
+        "/", "E1", "", "", "", "",
+        "/", "", "", "", "", "",
+        "/", "A1", "A2", "", "A3", "A4",
+        "/", "B1", "B2", "", "B2", "B4",
+        "/", "C1", "C2", "", "C3", "C4",
+        "/", "D1", "D2", "D3", "D4", "D5",
+    )
 
     private val STATUS_AVAILABLE = 1
     private val STATUS_BOOKED = 2
@@ -46,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             .setSeatGaping(5)
             .setSeatsLayoutString(seats)
             .setSeatLayoutPadding(1)
+            .isCustomTitle(true)
+            .setCustomTitle(title)
 
         seatBookView.setSeatTextSize(21f)
         seatBookView.setSeatViewLayout(viewGroupLayout)

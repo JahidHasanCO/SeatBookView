@@ -47,6 +47,10 @@ class MainActivity : AppCompatActivity() {
             .setCustomTitle(title)
 
         seatBookView.setSeatTextSize(21f)
+        seatBookView.setAvailableSeatsBackground(R.drawable.book)
+        seatBookView.setSelectedSeatsBackground(R.drawable.selected)
+        seatBookView.setReservedSeatsBackground(R.drawable.reserved)
+        seatBookView.setBookedSeatsBackground(R.drawable.booked)
         seatBookView.setSeatViewLayout(viewGroupLayout)
         seatBookView.show()
 

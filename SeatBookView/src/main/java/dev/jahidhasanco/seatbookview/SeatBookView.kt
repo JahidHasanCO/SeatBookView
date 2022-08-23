@@ -29,6 +29,18 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
                     "AA_AA/" +
                     "AAAAA/")
 
+    private var title = (
+            "EEEEE" +
+                    "_____" +
+                    "AAAAA" +
+                    "BBBBB" +
+                    "CCCCC" +
+                    "DDDDD"
+            )
+
+    private var isCustomTitle = false
+    private var count = 0
+
     private var seatViewList: ArrayList<TextView> = arrayListOf()
     private var seatSize = 300
     private var seatGaping = 10
@@ -38,7 +50,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
     private val STATUS_RESERVED = 3
     private var selectedIds = ""
 
-    private var count = 0
 
     //displayMetrics .density ... display size
     private var pxWidth = 0
@@ -73,7 +84,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
                         reservedDrawable
                     )
                 bookDrawable =
-                    getResourceId(R.styleable.SeatBookView_available_seat_background, bookDrawable)
+                    getResourceId(R.styleable.SeatBookView_available_seat_background,bookDrawable)
                 bookedDrawable =
                     getResourceId(R.styleable.SeatBookView_booked_seat_background, bookedDrawable)
                 selectedDrawable =
@@ -104,6 +115,17 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         pxHeight = displayMetrics.heightPixels
         dpHeight = pxHeight / displayMetrics.density
     }
+
+    fun isCustomTitle(r: Boolean): SeatBookView {
+        isCustomTitle = r
+        return this
+    }
+
+    fun setCustomTitle(titles: String): SeatBookView {
+        title = titles
+        return this
+    }
+
 
     fun setSeatGaping(size: Int): SeatBookView {
         seatGaping = size
@@ -198,12 +220,14 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
                 view.layoutParams = layoutParams
                 view.setPadding(0, 0, 0, 2 * seatGaping)
+
+                view.text = "$count"
                 view.id = count
+
                 view.gravity = Gravity.CENTER
                 view.setBackgroundResource(bookedDrawable)
                 view.setTextColor(bookedTextColor)
                 view.tag = STATUS_BOOKED
-                view.text = "$count"
                 view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
                 layout!!.addView(view)
                 seatViewList.add(view)

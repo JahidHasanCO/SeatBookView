@@ -14,12 +14,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var seatBookView: SeatBookView
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = (
-            "U____/"+
-                    "_____/"+
-                    "AA_AA/"+
-                    "UA_AR/"+
-                    "AA_AA/"+
-            "AAAAA/")
+            "U____/" +
+                    "_____/" +
+                    "AA_AA/" +
+                    "UA_AR/" +
+                    "AA_AA/" +
+                    "AAAAA/")
+
+    private var title = (
+            "EEEEE" +
+                    "_____" +
+                    "AAAAA" +
+                    "BBBBB" +
+                    "CCCCC" +
+                    "DDDDD"
+            )
 
     private val STATUS_AVAILABLE = 1
     private val STATUS_BOOKED = 2
@@ -33,15 +42,15 @@ class MainActivity : AppCompatActivity() {
         seatBookView = SeatBookView(this)
             .setSeatGaping(10)
             .setSeatSizeBySeatsColumn(5)
-            .setAvailableSeatsTextColor(R.color.purple_200)
             .setSeatsLayoutString(seats)
+
 
         seatBookView.setSeatTextSize(21f)
 
         seatBookView.setSeatViewLayout(viewGroupLayout)
         seatBookView.show()
 
-        seatBookView.setSeatClickListener(object :SeatBookView.SeatClickListener{
+        seatBookView.setSeatClickListener(object : SeatBookView.SeatClickListener {
 
             override fun onAvailableSeatClick(selectedIds: String, view: View) {
                 Toast.makeText(

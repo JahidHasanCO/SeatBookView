@@ -279,15 +279,26 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         )
         layoutSeat.orientation = VERTICAL
         layoutSeat.layoutParams = params
-        layoutSeat.setPadding(layout_padding * seatGaping, layout_padding * seatGaping, layout_padding * seatGaping, layout_padding * seatGaping)
+        layoutSeat.setPadding(
+            layout_padding * seatGaping,
+            layout_padding * seatGaping,
+            layout_padding * seatGaping,
+            layout_padding * seatGaping
+        )
         viewGroupLayout.addView(layoutSeat)
 
         var layout: LinearLayout? = null
         for (index in seats.indices) {
             if (seats[index] == '/') {
                 layout = LinearLayout(context)
+                val paramsV = LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                layout.layoutParams = paramsV
                 layout.orientation = HORIZONTAL
                 layout.gravity = Gravity.CENTER
+
                 layoutSeat.addView(layout)
             } else if (seats[index] == 'U') {
                 count++
@@ -372,9 +383,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
                 listener!!.onAvailableSeatClick(selectedIds, view)
             }
         } else if (view.tag as Int == STATUS_BOOKED) {
-            listener!!.onBookedSeatClick(view.id.toString(), view)
+            listener!!.onBookedSeatClick(view)
         } else if (view.tag as Int == STATUS_RESERVED) {
-            listener!!.onReservedSeatClick(view.id.toString(), view)
+            listener!!.onReservedSeatClick(view)
         }
     }
 
@@ -384,8 +395,8 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
 
     interface SeatClickListener {
         fun onAvailableSeatClick(selectedIds: String, view: View)
-        fun onBookedSeatClick(seatId: String, view: View)
-        fun onReservedSeatClick(seatId: String, view: View)
+        fun onBookedSeatClick(view: View)
+        fun onReservedSeatClick(view: View)
     }
 
 

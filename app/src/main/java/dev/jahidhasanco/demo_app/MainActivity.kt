@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
 
-            override fun onBookedSeatClick(seatId: String, view: View) {
+            override fun onBookedSeatClick(view: View) {
                 Toast.makeText(
                     this@MainActivity,
                     "Seat " + view.id.toString() + " is Booked",
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
 
-            override fun onReservedSeatClick(seatId: String, view: View) {
+            override fun onReservedSeatClick(view: View) {
                 Toast.makeText(
                     this@MainActivity,
                     "Seat " + view.id.toString() + " is Reserved",

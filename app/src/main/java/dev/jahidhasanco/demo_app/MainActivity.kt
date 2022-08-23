@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         seatBookView = SeatBookView(this)
             .setSeatGaping(5)
             .setSeatsLayoutString(seats)
+            .setSeatLayoutPadding(1)
 
         seatBookView.setSeatTextSize(21f)
         seatBookView.setSeatViewLayout(viewGroupLayout)

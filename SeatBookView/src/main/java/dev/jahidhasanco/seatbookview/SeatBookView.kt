@@ -45,6 +45,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
     private var seatViewList: ArrayList<TextView> = arrayListOf()
     private var seatSize = 300
     private var seatGaping = 10
+    private var layout_padding = 0
 
     private val STATUS_AVAILABLE = 1
     private val STATUS_BOOKED = 2
@@ -164,10 +165,10 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
 
                 when {
                     hasValue(R.styleable.SeatBookView_seat_size_by_seats_column) -> {
-                        seatSize = pxWidth / (getInt(
+                        seatSize = pxWidth / getInt(
                             R.styleable.SeatBookView_seat_size_by_seats_column,
                             5
-                        ) + 1)
+                        )
                         setSeatSizeBySeatsColumn(seatSize)
                     }
                 }
@@ -201,13 +202,18 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         return this
     }
 
+    fun setSeatLayoutPadding(size: Int): SeatBookView {
+        layout_padding = size
+        return this
+    }
+
     fun setSeatSize(size: Int): SeatBookView {
         seatSize = size
         return this
     }
 
     fun setSeatSizeBySeatsColumn(seatsInColumn: Int): SeatBookView {
-        seatSize = pxWidth / (seatsInColumn + 1)
+        seatSize = pxWidth / seatsInColumn
         return this
     }
 
@@ -273,7 +279,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         )
         layoutSeat.orientation = VERTICAL
         layoutSeat.layoutParams = params
-        layoutSeat.setPadding(8 * seatGaping, 8 * seatGaping, 8 * seatGaping, 8 * seatGaping)
+        layoutSeat.setPadding(layout_padding * seatGaping, layout_padding * seatGaping, layout_padding * seatGaping, layout_padding * seatGaping)
         viewGroupLayout.addView(layoutSeat)
 
         var layout: LinearLayout? = null

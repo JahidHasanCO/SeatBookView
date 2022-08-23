@@ -44,7 +44,11 @@ class MainActivity : AppCompatActivity() {
         seatBookView.setSeatClickListener(object :SeatBookView.SeatClickListener{
 
             override fun onAvailableSeatClick(selectedIds: String, view: View) {
-                TODO("Not yet implemented")
+                Toast.makeText(
+                    this@MainActivity,
+                    "Seat " + view.id.toString() + " is Selected",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             override fun onBookedSeatClick(seatId: String, view: View) {

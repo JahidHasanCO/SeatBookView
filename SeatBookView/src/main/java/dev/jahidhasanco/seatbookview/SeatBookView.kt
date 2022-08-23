@@ -88,8 +88,10 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
                 bookedTextColor =
                     getColor(R.styleable.SeatBookView_booked_seats_text_color, bookedTextColor)
                 seatSize = getInt(R.styleable.SeatBookView_seat_size, 300)
+
                 seatSize =
-                    getInt(pxWidth / (R.styleable.SeatBookView_seat_size_by_seats_column + 1), 300)
+                    pxWidth / (getInt(R.styleable.SeatBookView_seat_size_by_seats_column, 5) + 1)
+
             }
         }
     }
@@ -297,7 +299,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         } else if (view.tag as Int == STATUS_BOOKED) {
             listener!!.onBookedSeatClick(view.id.toString(), view)
         } else if (view.tag as Int == STATUS_RESERVED) {
-            listener!!.onBookedSeatClick(view.id.toString(), view)
+            listener!!.onReservedSeatClick(view.id.toString(), view)
         }
     }
 

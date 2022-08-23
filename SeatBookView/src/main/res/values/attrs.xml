@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SeatBookView">
-        <attr name="available_seat_background" format="integer"/>
-        <attr name="reserved_seat_background" format="integer"/>
-        <attr name="booked_seat_background" format="integer"/>
-        <attr name="selected_seats_background" format="integer"/>
+        <attr name="available_seat_background" format="reference"/>
+        <attr name="reserved_seat_background" format="reference"/>
+        <attr name="booked_seat_background" format="reference"/>
+        <attr name="selected_seats_background" format="reference"/>
         <attr name="reserved_seats_text_color" format="color"/>
         <attr name="booked_seats_text_color" format="color"/>
         <attr name="available_seats_text_color" format="color"/>

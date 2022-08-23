@@ -4,8 +4,11 @@ package dev.jahidhasanco.demo_app
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginBottom
+import androidx.core.view.setPadding
 import dev.jahidhasanco.seatbookview.SeatBookView
 
 
@@ -40,13 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         viewGroupLayout = findViewById(R.id.layoutSeat)
         seatBookView = SeatBookView(this)
-            .setSeatGaping(10)
-            .setSeatSizeBySeatsColumn(5)
+            .setSeatGaping(5)
             .setSeatsLayoutString(seats)
 
-
         seatBookView.setSeatTextSize(21f)
-
         seatBookView.setSeatViewLayout(viewGroupLayout)
         seatBookView.show()
 

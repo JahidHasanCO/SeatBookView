@@ -16,9 +16,7 @@
             android:id="@+id/layoutSeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:seat_size_by_seats_column="9"
             android:orientation="vertical"
-            app:available_seat_background="@mipmap/ic_launcher"
             />
 
     </ScrollView>

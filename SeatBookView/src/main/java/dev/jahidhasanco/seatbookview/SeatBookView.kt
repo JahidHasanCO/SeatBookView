@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.withStyledAttributes
 
 
@@ -77,31 +78,99 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
     init {
         getDisplaySize()
         if (attrs != null) {
+            Toast.makeText(context, "Attrs", Toast.LENGTH_SHORT).show()
             context.withStyledAttributes(attrs, R.styleable.SeatBookView) {
-                reservedDrawable =
-                    getResourceId(
-                        R.styleable.SeatBookView_reserved_seat_background,
-                        reservedDrawable
-                    )
-                bookDrawable =
-                    getResourceId(R.styleable.SeatBookView_available_seat_background,bookDrawable)
-                bookedDrawable =
-                    getResourceId(R.styleable.SeatBookView_booked_seat_background, bookedDrawable)
-                selectedDrawable =
-                    getResourceId(
-                        R.styleable.SeatBookView_selected_seats_background,
-                        selectedDrawable
-                    )
-                reservedTextColor =
-                    getColor(R.styleable.SeatBookView_reserved_seats_text_color, reservedTextColor)
-                bookTextColor =
-                    getColor(R.styleable.SeatBookView_available_seats_text_color, bookTextColor)
-                bookedTextColor =
-                    getColor(R.styleable.SeatBookView_booked_seats_text_color, bookedTextColor)
-                seatSize = getInt(R.styleable.SeatBookView_seat_size, 300)
 
-                seatSize =
-                    pxWidth / (getInt(R.styleable.SeatBookView_seat_size_by_seats_column, 5) + 1)
+                when {
+                    hasValue(R.styleable.SeatBookView_reserved_seat_background) -> {
+                        reservedDrawable =
+                            getResourceId(
+                                R.styleable.SeatBookView_reserved_seat_background,
+                                reservedDrawable
+                            )
+                        setReservedSeatsBackground(reservedDrawable)
+                    }
+                }
+                when {
+                    hasValue(R.styleable.SeatBookView_available_seat_background) -> {
+                        bookDrawable =
+                            getResourceId(
+                                R.styleable.SeatBookView_available_seat_background,
+                                bookDrawable
+                            )
+                        setAvailableSeatsBackground(bookDrawable)
+                    }
+                }
+                when {
+                    hasValue(R.styleable.SeatBookView_booked_seat_background) -> {
+                        bookedDrawable =
+                            getResourceId(
+                                R.styleable.SeatBookView_booked_seat_background,
+                                bookedDrawable
+                            )
+                        setBookedSeatsBackground(bookedDrawable)
+                    }
+                }
+                when {
+                    hasValue(R.styleable.SeatBookView_selected_seats_background) -> {
+                        selectedDrawable =
+                            getResourceId(
+                                R.styleable.SeatBookView_selected_seats_background,
+                                selectedDrawable
+                            )
+                        setSelectedSeatsBackground(selectedDrawable)
+                    }
+                }
+
+                when {
+                    hasValue(R.styleable.SeatBookView_reserved_seats_text_color) -> {
+                        reservedTextColor =
+                            getColor(
+                                R.styleable.SeatBookView_reserved_seats_text_color,
+                                reservedTextColor
+                            )
+                        setReservedSeatsTextColor(reservedTextColor)
+                    }
+                }
+
+                when {
+                    hasValue(R.styleable.SeatBookView_available_seats_text_color) -> {
+                        bookTextColor =
+                            getColor(
+                                R.styleable.SeatBookView_available_seats_text_color,
+                                bookTextColor
+                            )
+                        setAvailableSeatsTextColor(bookTextColor)
+                    }
+                }
+
+                when {
+                    hasValue(R.styleable.SeatBookView_booked_seats_text_color) -> {
+                        bookedTextColor =
+                            getColor(
+                                R.styleable.SeatBookView_booked_seats_text_color,
+                                bookedTextColor
+                            )
+                        setBookedSeatsTextColor(bookedTextColor)
+                    }
+                }
+
+                when {
+                    hasValue(R.styleable.SeatBookView_seat_size) -> {
+                        seatSize = getDimensionPixelSize(R.styleable.SeatBookView_seat_size, 300)
+                        setSeatSize(seatSize)
+                    }
+                }
+
+                when {
+                    hasValue(R.styleable.SeatBookView_seat_size_by_seats_column) -> {
+                        seatSize = pxWidth / (getInt(
+                            R.styleable.SeatBookView_seat_size_by_seats_column,
+                            5
+                        ) + 1)
+                        setSeatSizeBySeatsColumn(seatSize)
+                    }
+                }
 
             }
         }
@@ -195,13 +264,14 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         return this
     }
 
+
     fun show() {
         val layoutSeat = LinearLayout(context)
-        val params = LinearLayout.LayoutParams(
+        val params = LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        layoutSeat.orientation = LinearLayout.VERTICAL
+        layoutSeat.orientation = VERTICAL
         layoutSeat.layoutParams = params
         layoutSeat.setPadding(8 * seatGaping, 8 * seatGaping, 8 * seatGaping, 8 * seatGaping)
         viewGroupLayout.addView(layoutSeat)
@@ -210,71 +280,36 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         for (index in seats.indices) {
             if (seats[index] == '/') {
                 layout = LinearLayout(context)
-                layout.orientation = LinearLayout.HORIZONTAL
+                layout.orientation = HORIZONTAL
                 layout.gravity = Gravity.CENTER
                 layoutSeat.addView(layout)
             } else if (seats[index] == 'U') {
                 count++
                 val view = TextView(context)
-                val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setPadding(0, 0, 0, 2 * seatGaping)
-
+                setSeatAttrs(view, layout)
                 view.text = "$count"
                 view.id = count
+                markAsBooked(view)
 
-                view.gravity = Gravity.CENTER
-                view.setBackgroundResource(bookedDrawable)
-                view.setTextColor(bookedTextColor)
-                view.tag = STATUS_BOOKED
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                layout!!.addView(view)
-                seatViewList.add(view)
-                view.setOnClickListener {
-                    seatClick(it)
-                }
             } else if (seats[index] == 'A') {
                 count++
                 val view = TextView(context)
-                val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setPadding(0, 0, 0, 2 * seatGaping)
+                setSeatAttrs(view, layout)
                 view.id = count
-                view.gravity = Gravity.CENTER
-                view.setBackgroundResource(bookDrawable)
+                markAsAvailable(view)
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                view.setTextColor(bookTextColor)
-                view.tag = STATUS_AVAILABLE
-                layout!!.addView(view)
-                seatViewList.add(view)
-                view.setOnClickListener {
-                    seatClick(it)
-                }
+
             } else if (seats[index] == 'R') {
                 count++
                 val view = TextView(context)
-                val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setPadding(0, 0, 0, 2 * seatGaping)
+                setSeatAttrs(view, layout)
                 view.id = count
-                view.gravity = Gravity.CENTER
-                view.setBackgroundResource(reservedDrawable)
+                markAsReserved(view)
                 view.text = "$count"
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                view.setTextColor(reservedTextColor)
-                view.tag = STATUS_RESERVED
-                layout!!.addView(view)
-                seatViewList.add(view)
-                view.setOnClickListener {
-                    seatClick(it)
-                }
+
             } else if (seats[index] == '_') {
                 val view = TextView(context)
-                val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
+                val layoutParams = LayoutParams(seatSize, seatSize)
                 layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
                 view.layoutParams = layoutParams
                 view.setBackgroundColor(Color.TRANSPARENT)
@@ -285,31 +320,41 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
 
     }
 
-    //    fun seatClick(view: View) {
-//        if (view.tag as Int == STATUS_AVAILABLE) {
-//            if (selectedIds.contains(view.id.toString() + ",")) {
-//                selectedIds = selectedIds.replace(view.id.toString() + ",", "")
-//                view.setBackgroundResource(bookDrawable)
-//            } else {
-//                selectedIds = selectedIds + view.id.toString() + ","
-//                view.setBackgroundResource(selectedDrawable)
-//            }
-//        } else if (view.tag as Int == STATUS_BOOKED) {
-//            Toast.makeText(
-//                context,
-//                "Seat " + view.id.toString() + " is Booked",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        } else if (view.tag as Int == STATUS_RESERVED) {
-//            Toast.makeText(
-//                context,
-//                "Seat " + view.id.toString() + " is Reserved",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
-//
-    fun seatClick(view: View) {
+    private fun setSeatAttrs(view: TextView, layout: LinearLayout?) {
+        val layoutParams = LayoutParams(seatSize, seatSize)
+        layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
+        view.layoutParams = layoutParams
+        view.setPadding(0, 0, 0, 2 * seatGaping)
+        view.gravity = Gravity.CENTER
+        view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+        seatViewList.add(view)
+        layout!!.addView(view)
+
+        view.setOnClickListener {
+            seatClick(it)
+        }
+
+    }
+
+    fun markAsBooked(view: TextView) {
+        view.setBackgroundResource(bookedDrawable)
+        view.setTextColor(bookedTextColor)
+        view.tag = STATUS_BOOKED
+    }
+
+    fun markAsAvailable(view: TextView) {
+        view.setBackgroundResource(bookDrawable)
+        view.setTextColor(bookTextColor)
+        view.tag = STATUS_AVAILABLE
+    }
+
+    fun markAsReserved(view: TextView) {
+        view.setBackgroundResource(reservedDrawable)
+        view.setTextColor(reservedTextColor)
+        view.tag = STATUS_RESERVED
+    }
+
+    private fun seatClick(view: View) {
         if (view.tag as Int == STATUS_AVAILABLE) {
             if (selectedIds.contains(view.id.toString() + ",")) {
                 selectedIds = selectedIds.replace(view.id.toString() + ",", "")
@@ -337,5 +382,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         fun onReservedSeatClick(seatId: String, view: View)
     }
 
+
 }
+
 

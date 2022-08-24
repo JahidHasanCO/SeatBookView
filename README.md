@@ -77,7 +77,7 @@ To get a Git project into your build:
 | app:seat_size  | Size of the Seat  |
 | app:seat_size_by_seats_column  | This attribute assigns an "importance" value to a seat in terms of how much space it should occupy on the screen. A larger weight value allows it to expand to fill any remaining space in the parent view.   | |
 
-Check All XML Attributes [here](ATTRS)
+Check All XML Attributes [here](https://github.com/JahidHasanCO/SeatBookView/blob/master/ATTRS.md)
 
 ------------
 

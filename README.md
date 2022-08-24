@@ -3,9 +3,7 @@ SeatBookView is an Android Studio Library that helps to make it easier to create
 
 
 ## Preview 
-Home Page |
---- |
-![Home Page](https://github.com/JahidHasanCO/SeatBookView/blob/master/ART/Home.jpg) | 
+[Home Page](https://github.com/JahidHasanCO/SeatBookView/blob/master/ART/Home.jpg) | 
 
 ## Installation
 Step 1. Add the JitPack repository to your build file

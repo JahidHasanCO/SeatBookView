@@ -59,6 +59,8 @@ For creating a seat system you have to create a String for your seat position.
 | / | Use to create a new row. |
 | _ | Use to create a space.|
 
+---
+
 ```kotlin
     private var title = listOf(
         "/", "I1", "", "", "", "E5",

@@ -82,3 +82,26 @@ dependencies {
     seatBookView.setSeatViewLayout(viewGroupLayout)
     seatBookView.show()
 ```
+
+```kotlin
+        seatBookView.setSeatClickListener(object : SeatBookView.SeatClickListener {
+            override fun onAvailableSeatClick(selectedIdList: List<Int>, view: View) {
+            }
+            override fun onBookedSeatClick(view: View) {
+            }
+            override fun onReservedSeatClick(view: View) {
+            }
+        })
+```
+
+```kotlin
+    seatBookView.setSeatLongClickListener(object:SeatBookView.SeatLongClickListener{
+            override fun onAvailableSeatLongClick(view: View) {
+                Toast.makeText(this@MainActivity,"Long Pressed",Toast.LENGTH_SHORT).show()
+            }
+            override fun onBookedSeatLongClick(view: View) {
+            }
+            override fun onReservedSeatLongClick(view: View) {
+            }
+        })
+```

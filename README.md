@@ -19,3 +19,15 @@ dependencies {
 	        implementation 'com.github.JahidHasanCO:SeatBookView:1.0.2'
 	}
 ```
+
+# Usage
+
+```xml
+     <dev.jahidhasanco.seatbookview.SeatBookView
+            android:layout_marginTop="10dp"
+            android:id="@+id/layoutSeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
+```

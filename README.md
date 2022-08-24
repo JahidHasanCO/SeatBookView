@@ -1,5 +1,5 @@
 # SeatBookView
-SeatBookView is an Android Studio Library that helps to make it easier to create Bus :tw-1f68e:, Train :tw-1f69e:, Cinema Theater  Seat UI and all functionalities are given. Based on [varunjohn/Booking-Seats-Layout-Sample](https://github.com/varunjohn/Booking-Seats-Layout-Sample) [![](https://jitpack.io/v/JahidHasanCO/SeatBookView.svg)](https://jitpack.io/#JahidHasanCO/SeatBookView)
+SeatBookView is an Android Studio Library that helps to make it easier to create Bus 🚍, Train 🚉, Cinema Theater Seat UI and all functionalities are given. Based on [varunjohn/Booking-Seats-Layout-Sample](https://github.com/varunjohn/Booking-Seats-Layout-Sample) [![](https://jitpack.io/v/JahidHasanCO/SeatBookView.svg)](https://jitpack.io/#JahidHasanCO/SeatBookView)
 
 
 ## Preview 

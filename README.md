@@ -139,7 +139,7 @@ Create SeatBookView Object and set Layout, Titles, Seat String, and some Attribu
         .setCustomTitle(title)
         .setSelectSeatLimit(2)
         
-    seatBookView.setSeatViewLayout(viewGroupLayout)
+    seatBookView.setSeatViewLayout(seatBookView)
     seatBookView.show()
 ```
 

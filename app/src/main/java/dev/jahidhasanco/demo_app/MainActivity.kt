@@ -21,7 +21,13 @@ class MainActivity : AppCompatActivity() {
                     "/AA_AA" +
                     "/UA_AR" +
                     "/AA_AA" +
-                    "/AAAAA")
+                    "/RU_AA" +
+                    "/AA_AR" +
+                    "/AU_AA" +
+                    "/AA_AA" +
+                    "/AAAAA"
+
+            )
 
     private var title = listOf(
         "/", "E1", "", "", "", "E5",
@@ -29,7 +35,11 @@ class MainActivity : AppCompatActivity() {
         "/", "A1", "A2", "", "A3", "A4",
         "/", "B1", "B2", "", "B2", "B4",
         "/", "C1", "C2", "", "C3", "C4",
-        "/", "D1", "D2", "D3", "D4", "D5")
+        "/", "D1", "D2", "", "D3", "D4",
+        "/", "E1", "E2", "", "E3", "E4",
+        "/", "F1", "F2", "", "F3", "F4",
+        "/", "G1", "G2", "", "G3", "G4",
+        "/", "H1", "H2", "H3", "H4", "H5")
 
     private val STATUS_AVAILABLE = 1
     private val STATUS_BOOKED = 2
@@ -42,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         viewGroupLayout = findViewById(R.id.layoutSeat)
         seatBookView = SeatBookView(this)
             .setSeatGaping(5)
-            .setSeatSizeBySeatsColumn(5)
+            .setSeatSizeBySeatsColumn(6)
             .setSeatsLayoutString(seats)
             .setSeatLayoutPadding(10)
             .isCustomTitle(true)

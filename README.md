@@ -35,6 +35,7 @@ dependencies {
             />
 ```
 
+For creating a seat system you have to create a String for your seat position.
 ```kotlin
     private var seats = (
             "/U___S" +
@@ -49,6 +50,14 @@ dependencies {
                     "/AAAAA"
             )
 ```
+| Symbol | Uses For |
+| ------ | ------ |
+| A | Use to create a seat that hasn't book |
+| R | Use to create a seat that is already reserved. |
+| U | Use to create a seat that is already booked. |
+| S | Use to create an empty seat that you can assign Drawable. |
+| / | Use to create a new row. |
+| _ | Use to create a space.|
 
 ```kotlin
     private var title = listOf(

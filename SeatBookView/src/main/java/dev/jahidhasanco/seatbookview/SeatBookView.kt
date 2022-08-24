@@ -32,6 +32,10 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
 
     private var title = listOf<String>()
 
+    private var selectedIdList: ArrayList<Int> = arrayListOf()
+    private var selectSeatLimit = Int.MAX_VALUE
+    private var selectedSeats = 0
+
     private var isCustomTitle = false
     private var count = 0
 
@@ -189,6 +193,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         return this
     }
 
+    fun setSelectSeatLimit(limit: Int): SeatBookView {
+        selectSeatLimit = limit
+        return this
+    }
+
 
     fun setSeatGaping(size: Int): SeatBookView {
         seatGaping = size
@@ -308,7 +317,6 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
                 count++
                 val view = TextView(context)
                 setSeatAttrs(index, view, layout)
-
                 markAsReserved(view)
 
 
@@ -331,7 +339,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
         view.layoutParams = layoutParams
         view.setPadding(0, 0, 0, 2 * seatGaping)
         view.gravity = Gravity.CENTER
-        view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
         seatViewList.add(view)
         layout!!.addView(view)
         view.id = count
@@ -367,14 +375,20 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
 
     private fun seatClick(view: View) {
         if (view.tag as Int == STATUS_AVAILABLE) {
-            if (selectedIds.contains(view.id.toString() + ",")) {
-                selectedIds = selectedIds.replace(view.id.toString() + ",", "")
+            if (view.id in selectedIdList) {
+                selectedIdList.remove(view.id)
                 view.setBackgroundResource(bookDrawable)
                 listener!!.onAvailableSeatClick(selectedIds, view)
+                selectedSeats--
             } else {
-                selectedIds = selectedIds + view.id.toString() + ","
-                view.setBackgroundResource(selectedDrawable)
-                listener!!.onAvailableSeatClick(selectedIds, view)
+                if (selectedSeats < selectSeatLimit) {
+                    selectedIdList.add(view.id)
+                    view.setBackgroundResource(selectedDrawable)
+                    listener!!.onAvailableSeatClick(selectedIds, view)
+                    selectedSeats++
+                    Toast.makeText(context,"You Can Not select Seat more than $selectSeatLimit",Toast.LENGTH_SHORT).show()
+                }
+
             }
         } else if (view.tag as Int == STATUS_BOOKED) {
             listener!!.onBookedSeatClick(view)

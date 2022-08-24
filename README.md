@@ -61,6 +61,7 @@ For creating a seat system you have to create a String for your seat position.
 
 ---
 
+For setting the custom title of a seat, you need to create an ArrayList and set the value by index (You need to add value the same as your seat plan).
 ```kotlin
     private var title = listOf(
         "/", "I1", "", "", "", "E5",

@@ -157,7 +157,11 @@ For track Long press on seat to call setSeatLongClickListener()
 ```
 
 
-LICENSE
+## LICENSE
+
+
+This project is distributed under the MIT license, check the license for more info.
+
 
 ```
 MIT License

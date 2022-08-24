@@ -186,3 +186,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+
+### Contributing 💡
+If you want to contribute to this project and make it better with new ideas, your pull request is very welcomed.
+If you find any issue just put it in the repository issue section, thank you.

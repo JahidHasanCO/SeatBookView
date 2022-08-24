@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import dev.jahidhasanco.seatbookview.SeatBookView
@@ -53,7 +54,6 @@ class MainActivity : AppCompatActivity() {
             .setSeatGaping(5)
             .setSeatSizeBySeatsColumn(6)
             .setSeatsLayoutString(seats)
-            .setSeatLayoutPadding(10)
             .isCustomTitle(true)
             .setCustomTitle(title)
             .setSelectSeatLimit(2)
@@ -87,6 +87,22 @@ class MainActivity : AppCompatActivity() {
 
             }
 
+
+        })
+
+        seatBookView.setSeatLongClickListener(object:SeatBookView.SeatLongClickListener{
+
+            override fun onAvailableSeatLongClick(view: View) {
+                Toast.makeText(this@MainActivity,"Long Pressed",Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onBookedSeatLongClick(view: View) {
+
+            }
+
+            override fun onReservedSeatLongClick(view: View) {
+
+            }
 
         })
 

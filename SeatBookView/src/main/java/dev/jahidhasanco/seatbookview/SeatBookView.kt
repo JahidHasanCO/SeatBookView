@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.withStyledAttributes
 
 
@@ -20,15 +19,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
     private lateinit var viewGroupLayout: ViewGroup
-    private var seats = (
-            "/UU_RR" +
-                    "/AA_AA" +
-                    "/UA_AR" +
-                    "/AA_AA" +
-                    "/AA_AU" +
-                    "/RA_AA" +
-                    "/AA_AA" +
-                    "/AAAAA")
+    private var seats = ""
 
     private var title = listOf<String>()
 
@@ -44,8 +35,8 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     private var count = 0
 
     private var seatViewList: ArrayList<TextView> = arrayListOf()
-    private var seatSize = 300
-    private var seatGaping = 10
+    private var seatSize = 100
+    private var seatGaping = 0
     private var layout_padding = 0
 
     private val STATUS_AVAILABLE = 1
@@ -74,6 +65,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
 
 
     private var listener: SeatClickListener? = null
+    private var listenerLong: SeatLongClickListener? = null
 
 
     init {
@@ -161,7 +153,6 @@ constructor(context: Context, attrs: AttributeSet? = null) :
                             5
                         ) + 1) - (layout_padding * seatGaping)
 
-                        Toast.makeText(context, "$seatSize", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -377,6 +368,10 @@ constructor(context: Context, attrs: AttributeSet? = null) :
             seatClick(it)
         }
 
+        view.setOnLongClickListener {
+            seatLongClick(it)
+        }
+
     }
 
     fun markAsBooked(view: TextView) {
@@ -408,19 +403,14 @@ constructor(context: Context, attrs: AttributeSet? = null) :
             if (view.id in selectedIdList) {
                 selectedIdList.remove(view.id)
                 view.setBackgroundResource(bookDrawable)
-                listener!!.onAvailableSeatClick(selectedIdList, view)
                 selectedSeats--
+                listener!!.onAvailableSeatClick(selectedIdList, view)
             } else {
                 if (selectedSeats < selectSeatLimit) {
                     selectedIdList.add(view.id)
                     view.setBackgroundResource(selectedDrawable)
-                    listener!!.onAvailableSeatClick(selectedIdList, view)
                     selectedSeats++
-                    Toast.makeText(
-                        context,
-                        "You Can Not select Seat more than $selectSeatLimit",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    listener!!.onAvailableSeatClick(selectedIdList, view)
                 }
 
             }
@@ -431,14 +421,40 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
+    private fun seatLongClick(view: View): Boolean {
+        if (view.tag as Int == STATUS_AVAILABLE) {
+            listenerLong!!.onAvailableSeatLongClick(view)
+            return true
+        } else if (view.tag as Int == STATUS_BOOKED) {
+            listenerLong!!.onBookedSeatLongClick(view)
+            return true
+        } else if (view.tag as Int == STATUS_RESERVED) {
+            listenerLong!!.onReservedSeatLongClick(view)
+            return true
+        }
+        return false
+    }
+
+
     fun setSeatClickListener(listener: SeatClickListener) {
         this.listener = listener
     }
+
+    fun setSeatLongClickListener(listener: SeatLongClickListener) {
+        this.listenerLong = listener
+    }
+
 
     interface SeatClickListener {
         fun onAvailableSeatClick(selectedIdList: List<Int>, view: View)
         fun onBookedSeatClick(view: View)
         fun onReservedSeatClick(view: View)
+    }
+
+    interface SeatLongClickListener {
+        fun onAvailableSeatLongClick(view: View)
+        fun onBookedSeatLongClick(view: View)
+        fun onReservedSeatLongClick(view: View)
     }
 
 

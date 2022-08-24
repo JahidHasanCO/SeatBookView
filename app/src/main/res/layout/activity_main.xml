@@ -13,6 +13,7 @@
         >
 
         <dev.jahidhasanco.seatbookview.SeatBookView
+            android:layout_marginTop="10dp"
             android:id="@+id/layoutSeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

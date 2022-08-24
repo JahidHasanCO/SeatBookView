@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import dev.jahidhasanco.seatbookview.SeatBookView
@@ -29,8 +28,9 @@ class MainActivity : AppCompatActivity() {
 
             )
 
+
     private var title = listOf(
-        "/", "E1", "", "", "", "E5",
+        "/", "I1", "", "", "", "E5",
         "/", "", "", "", "", "",
         "/", "A1", "A2", "", "A3", "A4",
         "/", "B1", "B2", "", "B2", "B4",
@@ -39,11 +39,10 @@ class MainActivity : AppCompatActivity() {
         "/", "E1", "E2", "", "E3", "E4",
         "/", "F1", "F2", "", "F3", "F4",
         "/", "G1", "G2", "", "G3", "G4",
-        "/", "H1", "H2", "H3", "H4", "H5")
+        "/", "H1", "H2", "H3", "H4", "H5"
+    )
 
-    private val STATUS_AVAILABLE = 1
-    private val STATUS_BOOKED = 2
-    private val STATUS_RESERVED = 3
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         seatBookView.setSeatViewLayout(viewGroupLayout)
         seatBookView.show()
 
+
         seatBookView.getSeatView(2).apply {
             seatBookView.markAsTransparentSeat(this as TextView)
             this.setBackgroundResource(R.drawable.ic_steering)
@@ -76,27 +76,15 @@ class MainActivity : AppCompatActivity() {
         seatBookView.setSeatClickListener(object : SeatBookView.SeatClickListener {
 
             override fun onAvailableSeatClick(selectedIdList: List<Int>, view: View) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Seat " + view.id.toString() + " is Selected",
-                    Toast.LENGTH_SHORT
-                ).show()
+
             }
 
             override fun onBookedSeatClick(view: View) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Seat " + view.id.toString() + " is Booked",
-                    Toast.LENGTH_SHORT
-                ).show()
+
             }
 
             override fun onReservedSeatClick(view: View) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Seat " + view.id.toString() + " is Reserved",
-                    Toast.LENGTH_SHORT
-                ).show()
+
             }
 
 

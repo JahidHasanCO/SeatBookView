@@ -33,8 +33,12 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     private var title = listOf<String>()
 
     private var selectedIdList: ArrayList<Int> = arrayListOf()
+    private var bookedIdList: ArrayList<Int> = arrayListOf()
+    private var reservedIdList: ArrayList<Int> = arrayListOf()
+
     private var selectSeatLimit = Int.MAX_VALUE
     private var selectedSeats = 0
+
 
     private var isCustomTitle = false
     private var count = 0
@@ -222,6 +226,27 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     fun getSelectedIdList(): List<Int> {
         return selectedIdList
     }
+
+    fun getBookedIdList(): List<Int> {
+        return bookedIdList
+    }
+
+    fun getReservedIdList(): List<Int> {
+        return reservedIdList
+    }
+
+    fun setBookedIdList(list: List<Int>) {
+        for (id in list) {
+            markAsBooked(seatViewList[id - 1])
+        }
+    }
+
+    fun setReservedIdList(list: List<Int>) {
+        for (id in list) {
+            markAsReserved(seatViewList[id - 1])
+        }
+    }
+
 
     fun setAvailableSeatsBackground(drawable: Int): SeatBookView {
         bookDrawable = drawable

@@ -36,6 +36,21 @@ dependencies {
 ```
 
 ```kotlin
+    private var seats = (
+            "/U___S" +
+                    "/_____" +
+                    "/AA_AA" +
+                    "/UA_AR" +
+                    "/AA_AA" +
+                    "/RU_AA" +
+                    "/AA_AR" +
+                    "/AU_AA" +
+                    "/AA_AA" +
+                    "/AAAAA"
+            )
+```
+
+```kotlin
     private var title = listOf(
         "/", "I1", "", "", "", "E5",
         "/", "", "", "", "", "",

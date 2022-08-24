@@ -64,3 +64,21 @@ dependencies {
         "/", "H1", "H2", "H3", "H4", "H5"
     )
 ```
+
+
+```kotlin
+    private lateinit var seatBookView: SeatBookView
+    private lateinit var viewGroupLayout: ViewGroup
+        
+    viewGroupLayout = findViewById(R.id.layoutSeat)
+    seatBookView = SeatBookView(this)
+        .setSeatGaping(5)
+        .setSeatSizeBySeatsColumn(6)
+        .setSeatsLayoutString(seats)
+        .isCustomTitle(true)
+        .setCustomTitle(title)
+        .setSelectSeatLimit(2)
+        
+    seatBookView.setSeatViewLayout(viewGroupLayout)
+    seatBookView.show()
+```

@@ -77,7 +77,7 @@ For setting the custom title of a seat, you need to create an ArrayList and set 
     )
 ```
 
-
+Create SeatBookView Object and set Layout, Titles, Seat String, and some Attributes.
 ```kotlin
     private lateinit var seatBookView: SeatBookView
     private lateinit var viewGroupLayout: ViewGroup

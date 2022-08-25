@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#ffffff"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -14,11 +15,15 @@
 
         <dev.jahidhasanco.seatbookview.SeatBookView
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/layoutSeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:seat_text_size="15sp"
             app:available_seats_text_color="@color/purple_700"
+            app:booked_seats_text_color="@color/teal_200"
+            app:available_seat_background="@drawable/ic_launcher_background"
             />
 
     </ScrollView>

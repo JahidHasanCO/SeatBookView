@@ -158,7 +158,7 @@ Create SeatBookView Object and set Layout, Titles, Seat String, and some Attribu
 | setSeatGaping(size: Int)  | use for each seat margin.  |
 | setSeatLayoutPadding(size: Int) | Use to set Container Layout Padding. |
 | setSeatSize(size: Int) | Use to set seat size. This size uses for height and weight. |
-| setSeatSizeBySeatsColumnAndLayoutWidth(seatsInColumn: Int, parentLayoutWeight: Int)  | This function assigns an "importance" value to a seat in terms of how much space it should occupy on the screen. A larger weight value allows it to expand to fill any remaining space in the parent view. Note: ParentLayoutWeight -1 if Your seatBookView layout_width = match_parent / wrap_content | |
+| setSeatSizeBySeatsColumnAndLayoutWidth(seatsInColumn: Int, parentLayoutWeight: Int)  | Note: ParentLayoutWeight -1 if Your seatBookView layout_width = match_parent / wrap_content | |
 
 Check all functions [here](https://github.com/JahidHasanCO/SeatBookView/blob/master/KT_ATTRS.md)
 

@@ -8,22 +8,24 @@
     tools:context=".MainActivity">
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
         >
 
         <dev.jahidhasanco.seatbookview.SeatBookView
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="30dp"
             android:id="@+id/layoutSeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center"
+            app:seat_gaping="10dp"
+            app:seat_size="150dp"
             app:seat_text_size="15sp"
-            app:available_seats_text_color="@color/purple_700"
-            app:booked_seats_text_color="@color/teal_200"
-            app:available_seat_background="@drawable/ic_launcher_background"
+            app:available_seats_text_color="#59575C"
+            app:seat_select_limit="2"
             />
 
     </ScrollView>

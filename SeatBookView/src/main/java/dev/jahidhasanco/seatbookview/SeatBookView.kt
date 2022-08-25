@@ -46,9 +46,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
 
     //displayMetrics .density ... display size
     private var pxWidth = 0
-    private var dpWidth = 0f
     private var pxHeight = 0
-    private var dpHeight = 0f
     private var scaledDensity = 0f
     private var density = 0f
 
@@ -74,7 +72,8 @@ constructor(context: Context, attrs: AttributeSet? = null) :
 
         inflate(context, R.layout.layout_view_group, this)
         viewGroupLayout = findViewById(R.id.layout_viewGroup)
-        getDisplaySize()
+
+        getViewSize()
 
         if (attrs != null) {
             context.withStyledAttributes(attrs, R.styleable.SeatBookView, 0, 0) {
@@ -84,9 +83,15 @@ constructor(context: Context, attrs: AttributeSet? = null) :
                         R.styleable.SeatBookView_seat_text_size,
                         15
                     ).toFloat() / scaledDensity
+
                 seatSize = (getDimensionPixelSize(
                     R.styleable.SeatBookView_seat_size,
                     250
+                ) / density).toInt()
+
+                seatGaping = (getDimensionPixelSize(
+                    R.styleable.SeatBookView_seat_gaping,
+                    10
                 ) / density).toInt()
 
                 reservedDrawable = getResourceId(
@@ -132,28 +137,34 @@ constructor(context: Context, attrs: AttributeSet? = null) :
 
                 when {
                     hasValue(R.styleable.SeatBookView_seat_size_by_seats_column) -> {
-                        seatSize = (((pxWidth / getInt(
-                            R.styleable.SeatBookView_seat_size_by_seats_column,
-                            5
-                        ) + 1) - (layout_padding * seatGaping)) / density).toInt()
+                        setSeatSizeBySeatsColumn(
+                            getInt(
+                                R.styleable.SeatBookView_seat_size_by_seats_column,
+                                5
+                            )
+                        )
 
                     }
                 }
 
-
+                selectSeatLimit = getInt(R.styleable.SeatBookView_seat_select_limit, Int.MAX_VALUE)
             }
         }
+
+
     }
 
 
-    private fun getDisplaySize() {
+    private fun getViewSize() {
+
         val displayMetrics = context.resources.displayMetrics
+
         pxWidth = displayMetrics.widthPixels
-        dpWidth = pxWidth / displayMetrics.density
         pxHeight = displayMetrics.heightPixels
-        dpHeight = pxHeight / displayMetrics.density
         scaledDensity = displayMetrics.scaledDensity
         density = displayMetrics.density
+
+
     }
 
     fun isCustomTitle(r: Boolean): SeatBookView {
@@ -187,9 +198,8 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         return this
     }
 
-    fun setSeatSizeBySeatsColumn(seatsInColumn: Int): SeatBookView {
-        seatSize = (pxWidth / seatsInColumn + 1) - (layout_padding * seatGaping)
-        return this
+    fun setSeatSizeBySeatsColumn(seatsInColumn: Int) {
+        seatSize = (pxWidth / seatsInColumn) - (seatGaping + layout_padding)
     }
 
     fun setSeatsLayoutString(seats: String): SeatBookView {
@@ -279,7 +289,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     fun show() {
         val layoutSeat = LinearLayout(context)
         val params = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         layoutSeat.orientation = LinearLayout.VERTICAL
@@ -297,7 +307,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
             if (seats[index] == '/') {
                 layout = LinearLayout(context)
                 val paramsV = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
                 layout.layoutParams = paramsV

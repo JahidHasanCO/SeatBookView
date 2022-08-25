@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         "/", "I1", "", "", "", "E5",
         "/", "", "", "", "", "",
         "/", "A1", "A2", "", "A3", "A4",
-        "/", "B1", "B2", "", "B2", "B4",
+        "/", "B1", "B2", "", "B3", "B4",
         "/", "C1", "C2", "", "C3", "C4",
         "/", "D1", "D2", "", "D3", "D4",
         "/", "E1", "E2", "", "E3", "E4",
@@ -59,12 +59,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         seatBookView = findViewById(R.id.layoutSeat)
-        seatBookView.setSeatGaping(5)
-            .setSeatSizeBySeatsColumn(6)
-            .setSeatsLayoutString(seats)
+        seatBookView.setSeatsLayoutString(seats)
             .isCustomTitle(true)
             .setCustomTitle(title)
-            .setSelectSeatLimit(2)
+
 
         seatBookView.show()
 

@@ -9,7 +9,9 @@
         <attr name="booked_seats_text_color" format="color"/>
         <attr name="available_seats_text_color" format="color"/>
         <attr name="seat_size" format="dimension"/>
+        <attr name="seat_gaping" format="dimension"/>
         <attr name="seat_text_size" format="dimension"/>
         <attr name="seat_size_by_seats_column" format="integer"/>
+        <attr name="seat_select_limit" format="integer"/>
     </declare-styleable>
 </resources>

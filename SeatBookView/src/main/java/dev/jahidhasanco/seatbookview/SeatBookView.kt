@@ -16,7 +16,7 @@ import androidx.core.content.withStyledAttributes
 class SeatBookView
 @JvmOverloads
 constructor(context: Context, attrs: AttributeSet? = null) :
-    LinearLayout(context, attrs) {
+    LinearLayout(context, attrs){
 
     private lateinit var viewGroupLayout: ViewGroup
     private var seats = ""
@@ -283,6 +283,15 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         return seatViewList[id - 1]
     }
 
+    public fun setSeatClickListener(listener: SeatClickListener) {
+        this.listener = listener
+    }
+
+    public fun setSeatLongClickListener(listener: SeatLongClickListener) {
+        this.listenerLong = listener
+    }
+
+
     fun show() {
         val layoutSeat = LinearLayout(context)
         val params = LayoutParams(
@@ -404,57 +413,40 @@ constructor(context: Context, attrs: AttributeSet? = null) :
                 selectedIdList.remove(view.id)
                 view.setBackgroundResource(bookDrawable)
                 selectedSeats--
-                listener!!.onAvailableSeatClick(selectedIdList, view)
+
+                listener?.onAvailableSeatClick(selectedIdList, view)
+
             } else {
                 if (selectedSeats < selectSeatLimit) {
                     selectedIdList.add(view.id)
                     view.setBackgroundResource(selectedDrawable)
                     selectedSeats++
-                    listener!!.onAvailableSeatClick(selectedIdList, view)
+
+                    listener?.onAvailableSeatClick(selectedIdList, view)
+
                 }
 
             }
         } else if (view.tag as Int == STATUS_BOOKED) {
-            listener!!.onBookedSeatClick(view)
+            listener?.onBookedSeatClick(view)
+
         } else if (view.tag as Int == STATUS_RESERVED) {
-            listener!!.onReservedSeatClick(view)
+            listener?.onReservedSeatClick(view)
         }
     }
 
     private fun seatLongClick(view: View): Boolean {
         if (view.tag as Int == STATUS_AVAILABLE) {
-            listenerLong!!.onAvailableSeatLongClick(view)
+            listenerLong?.onAvailableSeatLongClick(view)
             return true
         } else if (view.tag as Int == STATUS_BOOKED) {
-            listenerLong!!.onBookedSeatLongClick(view)
+            listenerLong?.onBookedSeatLongClick(view)
             return true
         } else if (view.tag as Int == STATUS_RESERVED) {
-            listenerLong!!.onReservedSeatLongClick(view)
+            listenerLong?.onReservedSeatLongClick(view)
             return true
         }
         return false
-    }
-
-
-    fun setSeatClickListener(listener: SeatClickListener) {
-        this.listener = listener
-    }
-
-    fun setSeatLongClickListener(listener: SeatLongClickListener) {
-        this.listenerLong = listener
-    }
-
-
-    interface SeatClickListener {
-        fun onAvailableSeatClick(selectedIdList: List<Int>, view: View)
-        fun onBookedSeatClick(view: View)
-        fun onReservedSeatClick(view: View)
-    }
-
-    interface SeatLongClickListener {
-        fun onAvailableSeatLongClick(view: View)
-        fun onBookedSeatLongClick(view: View)
-        fun onReservedSeatLongClick(view: View)
     }
 
 

@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import dev.jahidhasanco.seatbookview.SeatBookView
+import dev.jahidhasanco.seatbookview.SeatClickListener
+import dev.jahidhasanco.seatbookview.SeatLongClickListener
 
 
 class MainActivity : AppCompatActivity() {
@@ -73,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             this.setPadding(5)
         }
 
-        seatBookView.setSeatClickListener(object : SeatBookView.SeatClickListener {
+        seatBookView.setSeatClickListener(object : SeatClickListener {
 
             override fun onAvailableSeatClick(selectedIdList: List<Int>, view: View) {
 
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        seatBookView.setSeatLongClickListener(object:SeatBookView.SeatLongClickListener{
+        seatBookView.setSeatLongClickListener(object:SeatLongClickListener{
 
             override fun onAvailableSeatLongClick(view: View) {
                 Toast.makeText(this@MainActivity,"Long Pressed",Toast.LENGTH_SHORT).show()

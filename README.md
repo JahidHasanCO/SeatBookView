@@ -23,7 +23,7 @@ Add it in your root build.gradle at the end of repositories:
 **Step 2:** Add the dependency
 ```sh
 dependencies {
-	        implementation 'com.github.JahidHasanCO:SeatBookView:1.0.2'
+	        implementation 'com.github.JahidHasanCO:SeatBookView:1.0.3'
 	}
 ```
 
@@ -54,12 +54,18 @@ To get a Git project into your build:
 # Usage
 
 ```xml
-     <dev.jahidhasanco.seatbookview.SeatBookView
+        <dev.jahidhasanco.seatbookview.SeatBookView
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             android:id="@+id/layoutSeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center"
+            app:seat_gaping="10dp"
+            app:seat_text_size="15sp"
+            app:available_seats_text_color="#59575C"
+            app:seat_select_limit="2"
             />
 ```
 
@@ -75,8 +81,7 @@ To get a Git project into your build:
 | app:reserved_seats_text_color  | Color of the reserved seat text.   |
 | app:booked_seats_text_color  | Color of the booked seat text.  |
 | app:available_seats_text_color  | Color of the non booked seat text.  |
-| app:seat_size  | Size of the Seat  |
-| app:seat_size_by_seats_column  | This attribute assigns an "importance" value to a seat in terms of how much space it should occupy on the screen. A larger weight value allows it to expand to fill any remaining space in the parent view.   | |
+| app:seat_size  | Size of the Seat  ||
 
 Check All XML Attributes [here](https://github.com/JahidHasanCO/SeatBookView/blob/master/ATTRS.md)
 
@@ -116,7 +121,7 @@ For setting the custom title of a seat, you need to create an ArrayList and set 
         "/", "I1", "", "", "", "E5",
         "/", "", "", "", "", "",
         "/", "A1", "A2", "", "A3", "A4",
-        "/", "B1", "B2", "", "B2", "B4",
+        "/", "B1", "B2", "", "B3", "B4",
         "/", "C1", "C2", "", "C3", "C4",
         "/", "D1", "D2", "", "D3", "D4",
         "/", "E1", "E2", "", "E3", "E4",
@@ -130,17 +135,17 @@ Create SeatBookView Object and set Layout, Titles, Seat String, and some Attribu
 ```kotlin
     private lateinit var seatBookView: SeatBookView
         
-    seatBookView = findViewById(R.id.layoutSeat)
-    seatBookView = SeatBookView(this)
-        .setSeatGaping(5)
-        .setSeatSizeBySeatsColumn(6)
-        .setSeatsLayoutString(seats)
-        .isCustomTitle(true)
-        .setCustomTitle(title)
-        .setSelectSeatLimit(2)
-        
-    seatBookView.setSeatViewLayout(seatBookView)
-    seatBookView.show()
+        seatBookView = findViewById(R.id.layoutSeat)
+        seatBookView.setSeatsLayoutString(seats)
+            .isCustomTitle(true)
+            .setCustomTitle(title)
+            .setSeatLayoutPadding(2)
+            .setSeatSizeBySeatsColumnAndLayoutWidth(5, -1)
+        //ParentLayoutWeight -1 if Your seatBookView layout_width = match_parent / wrap_content
+
+
+        seatBookView.show()
+
 ```
 
 **Functions of this Library**
@@ -153,7 +158,7 @@ Create SeatBookView Object and set Layout, Titles, Seat String, and some Attribu
 | setSeatGaping(size: Int)  | use for each seat margin.  |
 | setSeatLayoutPadding(size: Int) | Use to set Container Layout Padding. |
 | setSeatSize(size: Int) | Use to set seat size. This size uses for height and weight. |
-| setSeatSizeBySeatsColumn(seatsInColumn: Int) | This function assigns an "importance" value to a seat in terms of how much space it should occupy on the screen. A larger weight value allows it to expand to fill any remaining space in the parent view. | |
+| setSeatSizeBySeatsColumnAndLayoutWidth(seatsInColumn: Int, parentLayoutWeight: Int)  | This function assigns an "importance" value to a seat in terms of how much space it should occupy on the screen. A larger weight value allows it to expand to fill any remaining space in the parent view. Note: ParentLayoutWeight -1 if Your seatBookView layout_width = match_parent / wrap_content | |
 
 Check all functions [here](https://github.com/JahidHasanCO/SeatBookView/blob/master/KT_ATTRS.md)
 

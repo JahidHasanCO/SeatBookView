@@ -62,6 +62,9 @@ class MainActivity : AppCompatActivity() {
         seatBookView.setSeatsLayoutString(seats)
             .isCustomTitle(true)
             .setCustomTitle(title)
+            .setSeatLayoutPadding(2)
+            .setSeatSizeBySeatsColumnAndLayoutWidth(5, -1)
+        //ParentLayoutWeight -1 if Your seatBookView layout_width = match_parent / wrap_content
 
 
         seatBookView.show()

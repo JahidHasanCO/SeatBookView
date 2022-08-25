@@ -135,18 +135,6 @@ constructor(context: Context, attrs: AttributeSet? = null) :
                         bookedTextColor
                     )
 
-                when {
-                    hasValue(R.styleable.SeatBookView_seat_size_by_seats_column) -> {
-                        setSeatSizeBySeatsColumn(
-                            getInt(
-                                R.styleable.SeatBookView_seat_size_by_seats_column,
-                                5
-                            )
-                        )
-
-                    }
-                }
-
                 selectSeatLimit = getInt(R.styleable.SeatBookView_seat_select_limit, Int.MAX_VALUE)
             }
         }
@@ -158,7 +146,6 @@ constructor(context: Context, attrs: AttributeSet? = null) :
     private fun getViewSize() {
 
         val displayMetrics = context.resources.displayMetrics
-
         pxWidth = displayMetrics.widthPixels
         pxHeight = displayMetrics.heightPixels
         scaledDensity = displayMetrics.scaledDensity
@@ -198,8 +185,12 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         return this
     }
 
-    fun setSeatSizeBySeatsColumn(seatsInColumn: Int) {
-        seatSize = (pxWidth / seatsInColumn) - (seatGaping + layout_padding)
+    fun setSeatSizeBySeatsColumnAndLayoutWidth(seatsInColumn: Int, parentLayoutWeight: Int) {
+        seatSize = if (parentLayoutWeight != -1) {
+            (parentLayoutWeight / seatsInColumn) - ((seatGaping * (seatsInColumn - 1)) + (layout_padding * 2))
+        } else {
+            (pxWidth / seatsInColumn) - ((seatGaping * (seatsInColumn - 1)) + (layout_padding * 2))
+        }
     }
 
     fun setSeatsLayoutString(seats: String): SeatBookView {
@@ -355,7 +346,6 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         val layoutParams = LinearLayout.LayoutParams(seatSize, seatSize)
         layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
         view.layoutParams = layoutParams
-        view.setPadding(0, 0, 0, 2 * seatGaping)
         view.gravity = Gravity.CENTER
         view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
         seatViewList.add(view)

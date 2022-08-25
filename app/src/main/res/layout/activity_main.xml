@@ -22,7 +22,6 @@
             android:orientation="vertical"
             android:gravity="center"
             app:seat_gaping="10dp"
-            app:seat_size="150dp"
             app:seat_text_size="15sp"
             app:available_seats_text_color="#59575C"
             app:seat_select_limit="2"

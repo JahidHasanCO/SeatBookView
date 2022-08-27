@@ -216,6 +216,12 @@ constructor(context: Context, attrs: AttributeSet? = null) :
             markAsBooked(seatViewList[id - 1])
         }
     }
+    
+    fun setAvailableIdList(list: List<Int>) {
+        for (id in list) {
+            markAsAvailable(seatViewList[id - 1])
+        }
+    }
 
     fun setReservedIdList(list: List<Int>) {
         for (id in list) {

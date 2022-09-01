@@ -216,7 +216,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
             markAsBooked(seatViewList[id - 1])
         }
     }
-    
+
     fun setAvailableIdList(list: List<Int>) {
         for (id in list) {
             markAsAvailable(seatViewList[id - 1])
@@ -234,8 +234,8 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         bookDrawable = drawable
         return this
     }
-    
-    fun setIsOnlyShow(r:Boolean){
+
+    fun setIsOnlyShow(r: Boolean) {
         isOnlyShow = r
     }
 
@@ -368,13 +368,18 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         }
 
         view.setOnClickListener {
-            if(!isOnlyShow){
-            seatClick(it)}
+            if (!isOnlyShow) {
+                seatClick(it)
+            }
         }
 
         view.setOnLongClickListener {
-            if(!isOnlyShow){
-            seatLongClick(it)}
+            if (!isOnlyShow) {
+                seatLongClick(it)
+                true
+            } else {
+                false
+            }
         }
 
     }

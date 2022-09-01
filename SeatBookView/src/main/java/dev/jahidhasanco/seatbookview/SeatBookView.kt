@@ -29,7 +29,7 @@ constructor(context: Context, attrs: AttributeSet? = null) :
 
     private var selectSeatLimit = Int.MAX_VALUE
     private var selectedSeats = 0
-
+    private var isOnlyShow = false
 
     private var isCustomTitle = false
     private var count = 0
@@ -234,6 +234,10 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         bookDrawable = drawable
         return this
     }
+    
+    fun setIsOnlyShow(r:Boolean){
+        isOnlyShow = r
+    }
 
     fun setBookedSeatsBackground(drawable: Int): SeatBookView {
         bookedDrawable = drawable
@@ -364,11 +368,13 @@ constructor(context: Context, attrs: AttributeSet? = null) :
         }
 
         view.setOnClickListener {
-            seatClick(it)
+            if(!isOnlyShow){
+            seatClick(it)}
         }
 
         view.setOnLongClickListener {
-            seatLongClick(it)
+            if(!isOnlyShow){
+            seatLongClick(it)}
         }
 
     }
